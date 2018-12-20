@@ -11,11 +11,14 @@
 ## 预处理语言的诞生
 
 - Sass
-> Sass诞生于2007年，Ruby编写，其功能及语法都十分全面，可以说完全把CSS变成了一门编程语言，在国内外都十分受欢迎。是一门非常优秀的的预处理语言。
+<br>
+Sass诞生于2007年，Ruby编写，其功能及语法都十分全面，可以说完全把CSS变成了一门编程语言，在国内外都十分受欢迎。是一门非常优秀的的预处理语言。
 - Stylus
-> Stytus诞生于2010年，来自Node.js社区，其语法功能与Sass不相伯仲，是一门十分独特的创新型语言。
+<br>
+Stytus诞生于2010年，来自Node.js社区，其语法功能与Sass不相伯仲，是一门十分独特的创新型语言。
 - Less
-> Less诞生于2009年，受Sass影响创建的一个开源项目。它扩充了CSS语言，增加了诸如变量、混合、函数等功能，让CSS更易于维护、方便。
+<br>
+Less诞生于2009年，受Sass影响创建的一个开源项目。它扩充了CSS语言，增加了诸如变量、混合、函数等功能，让CSS更易于维护、方便。
 
 ## 预处理语言的选择
 
@@ -28,8 +31,7 @@
 ## Less的正确打开方式 
 
 1. 在页面中引用Less.js
-<br>
-可以在官网下载或者使用CDN
+可以在[官网](https://www.css88.com/doc/less/#)下载或者使用[CDN](//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js)
 ```javascript
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 ```
@@ -40,7 +42,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 ```
 2. 在命令行，使用Node包管理工具npm来安装:
-```
+```javascript
 npm install -g less 
 ```
 &emsp;&emsp;&emsp;一旦安装完成，就可以在命令行中调用，例如:
@@ -235,7 +237,6 @@ body {
 ### **&** 的妙用
 & ：代表的上一层选择器的名字，此例便是header
 * 要点：
-<br>
   `.` 与 `#` 皆可作为 方法前缀。
 <br>
   方法后写不写 `()` 看个人习惯。
@@ -617,7 +618,6 @@ Less中最强大的特性
 ## 函数
 ### 判断类型
 1. isnumber
-<br>
  判断给定的值 是否 是一个数字。
  ```less
   isnumber(#ff0);     // false
@@ -630,46 +630,33 @@ Less中最强大的特性
   isnumber(url(...)); // false
 ```
 2. iscolor
-<br>
  >判断给定的值是否是一个颜色。
 3. isurl
- <br>
  判断给定的值是否是一个 url。
 ### 颜色操作
 1. saturate 
- <br>
 增加一定数值的颜色饱和度。 
 2. lighten
- <br>
 降低一定数值的颜色亮度。
 3. darken
- <br>
 降低一定数值的颜色亮度。
 4. fade
- <br>
 给颜色设定一定数值的透明度。
 5. mix 
- <br>
 根据比例混合两种颜色。
 ### 数学函数
 1. ceil 
- <br>
 向上取整。 
 2. **floor** 
- <br>
 向下取整。
 3. **percentage** 
- <br>
 将浮点数转换为百分比字符串。
 4. **round** 
- <br>
 四舍五入。
 5. **abs** 
- <br>
 计算数字的绝对值，原样保持单位。
-<br>
 由于文章篇幅有限，所以只能介绍一些使用效率高的函数。
-如果你想了解更多，可以去官网的函数链接
+如果你想了解更多，可以去官网的[函数链接](http://lesscss.cn/functions/)
 ## 其他
 ### 注释
 - /* */ 
