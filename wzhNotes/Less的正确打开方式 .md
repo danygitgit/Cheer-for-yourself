@@ -29,7 +29,7 @@
 
 1. 在页面中引用Less.js
 <br>
-可以在[官网](https://www.css88.com/doc/less/#)下载或者使用[CDN](//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js)
+可以在官网下载或者使用CDN
 ```javascript
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 ```
@@ -669,7 +669,7 @@ Less中最强大的特性
 计算数字的绝对值，原样保持单位。
 <br>
 由于文章篇幅有限，所以只能介绍一些使用效率高的函数。
-如果你想了解更多，可以去官网的[函数链接](http://lesscss.cn/functions/)
+如果你想了解更多，可以去官网的函数链接
 ## 其他
 ### 注释
 - /* */ 
