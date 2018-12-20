@@ -10,13 +10,13 @@
 
 ## 预处理语言的诞生
 
-* **Sass**
+* Sass
 <br>
 Sass诞生于2007年，Ruby编写，其功能及语法都十分全面，可以说完全把CSS变成了一门编程语言，在国内外都十分受欢迎。是一门非常优秀的的预处理语言。
-* **Stylus**
+* Stylus
 <br>
 Stytus诞生于2010年，来自Node.js社区，其语法功能与Sass不相伯仲，是一门十分独特的创新型语言。
-* **Less**
+* Less
 <br>
 Less诞生于2009年，受Sass影响创建的一个开源项目。它扩充了CSS语言，增加了诸如变量、混合、函数等功能，让CSS更易于维护、方便。
 
@@ -33,25 +33,25 @@ Less诞生于2009年，受Sass影响创建的一个开源项目。它扩充了CS
 1. 在页面中引用Less.js
 <br>
 可以在[官网](https://www.css88.com/doc/less/#)下载或者使用[CDN](//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js)
-```js
+```javascript
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 ```
 &emsp;&emsp;&emsp;
 需要注意的是，link标签一定要在引入Less.js之前引入，并且link标签的的rel属性要设置为stylesheet/less
-```js
+```javascript
 <link rel="stylesheet/less" herf="style.less">
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 ```
 2. 在命令行，使用Node包管理工具npm来安装:
-```
+```javascript
 npm install -g less 
 ```
 &emsp;&emsp;&emsp;一旦安装完成，就可以在命令行中调用，例如:
-```
+```javascript
 lessc styles.less
 ```
 &emsp;&emsp;&emsp;这样的话编译后的CSS将会输出到 'stdout' 中，你可以选择将这个输出重定向到文件中:
-```
+```javascript
 $ lessc styles.less > styles.css
 ```
 &emsp;&emsp;&emsp;详细步骤请参考官方文档
@@ -242,7 +242,7 @@ body {
   `.` 与 `#` 皆可作为 方法前缀。
 <br>
   方法后写不写 `()` 看个人习惯。
-```less
+```Less
 /* Less */
 #header{
   &:after{
@@ -619,7 +619,7 @@ Less中最强大的特性
 ```
 ## 函数
 ### 判断类型
-1. **isnumber**
+1. isnumber
 <br>
  判断给定的值 是否 是一个数字。
 ```less
@@ -632,30 +632,30 @@ isnumber(7.8%);     // true
 isnumber(keyword);  // false
 isnumber(url(...)); // false
 ```
-2. **iscolor**
+2. iscolor
 <br>
  >判断给定的值是否是一个颜色。
- 3. **isurl**
+3. isurl
  <br>
  判断给定的值是否是一个 url。
- ### 颜色操作
- 1. **saturate** 
+### 颜色操作
+1. saturate 
  <br>
 增加一定数值的颜色饱和度。 
-2. **lighten** 
+2. lighten
  <br>
 降低一定数值的颜色亮度。
-3. **darken** 
+3. darken
  <br>
 降低一定数值的颜色亮度。
-4. **fade** 
+4. fade
  <br>
 给颜色设定一定数值的透明度。
-5. **mix** 
+5. mix 
  <br>
 根据比例混合两种颜色。
 ### 数学函数
-1. **ceil** 
+1. ceil 
  <br>
 向上取整。 
 2. **floor** 
