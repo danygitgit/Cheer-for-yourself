@@ -293,5 +293,433 @@ Less 可以使用默认参数，如果 没有传参数，那么将使用默认�
 @arguments 犹如 JS 中的 arguments 指代的是 全部参数。
 <br>
 传的参数中 必须带着单位。
+```less
+/* Less */
+.border(@a:10px,@b:50px,@c:30px,@color:#000){
+  border:solid 1px @color;
+  box-shadow: @arguments;//指代的是 全部参数
+}
+#main{
+  .border(0px,5px,30px,red);//必须带着单位
+}
+#wrap{
+  .border(0px);
+}
+#content{
+  .border;//等价于 .border()
+}
 
+/* 生成的 CSS */
+#main{
+  border:solid 1px red;
+  box-shadow:0px,5px,30px,red;
+}
+#wrap{
+  border:solid 1px #000;
+  box-shadow: 0px 50px 30px #000;
+}
+#content{
+  border:solid 1px #000;
+  box-shadow: 10px 50px 30px #000;
+}  
+```
+### 方法的匹配模式
+以某个参数作为匹配符，与面向对象中的多态很相似
+```less
+/* Less */
+.triangle(top,@width:20px,@color:#000){
+  border-color:transparent  transparent @color transparent ;
+}
+.triangle(right,@width:20px,@color:#000){
+  border-color:transparent @color transparent  transparent ;
+}
+
+.triangle(bottom,@width:20px,@color:#000){
+  border-color:@color transparent  transparent  transparent ;
+}
+.triangle(left,@width:20px,@color:#000){
+  border-color:transparent  transparent  transparent @color;
+}
+.triangle(@_,@width:20px,@color:#000){
+  border-style: solid;
+  border-width: @width;
+}
+#main{
+  .triangle(left, 50px, #999)
+}
+/* 生成的 CSS */
+#main{
+  border-color:transparent  transparent  transparent #999;
+  border-style: solid;
+  border-width: 50px;
+}
+```
+* 要点
+```less
+  - 第一个参数 `left` 要会找到方法中匹配程度最高的，如果匹配程度相同，将全部选择，并存在着样式覆盖替换。
+
+  - 如果匹配的参数 是变量，则将会匹配，如 `@_` 。
+```
+### 方法的命名空间
+让方法更加规范
+```less
+/* Less */
+#card(){
+  background: #723232;
+  .d(@w:300px){
+    width: @w;
+        
+    #a(@h:300px){
+      height: @h;//可以使用上一层传进来的方法
+      width: @w;
+    }
+  }
+}
+#wrap{
+  #card > .d > #a(100px); // 父元素不能加 括号
+}
+#main{
+  #card .d();
+}
+#con{
+  //不得单独使用命名空间的方法
+  //.d() 如果前面没有引入命名空间 #card ，将会报错
+    
+  #card; // 等价于 #card();
+  .d(20px); //必须先引入 #card
+}
+/* 生成的 CSS */
+#wrap{
+  height:100px;
+  width:300px;
+}
+#main{
+  width:300px;
+}
+#con{
+  width:20px;
+}
+```
+* 要点
+```less
+  - 在 CSS 中`>` 选择器，选择的是 儿子元素，就是 必须与父元素 有直接血源的元素。
+  - 在引入命令空间时，如使用 `>` 选择器，父元素不能加 括号。
+  - 不得单独使用命名空间的方法 必须先引入命名空间，才能使用 其中方法。
+  - 子方法 可以使用上一层传进来的方法
+```
+### 方法的条件筛选
+Less 没有 if else，可是它有 when
+```less
+/* Less */
+#card{      
+  // and 运算符 ，相当于 与运算 &&，必须条件全部符合才会执行
+  .border(@width,@color,@style) when (@width>100px) and(@color=#999){
+    border:@style @color @width;
+  }
+  // not 运算符，相当于 非运算 !，条件为 不符合才会执行
+  .background(@color) when not (@color>=#222){
+    background:@color;
+  }
+  // , 逗号分隔符：相当于 或运算 ||，只要有一个符合条件就会执行
+  .font(@size:20px) when (@size>50px) , (@size<100px){
+      font-size: @size;
+  }
+}
+#main{
+  #card>.border(200px,#999,solid);
+  #card .background(#111);
+  #card > .font(40px);
+}
+/* 生成后的 CSS */
+#main{
+  border:solid #999 200px;
+  background:#111;
+  font-size:40px;
+}
+```
+* 要点
+```less
+  - 比较运算有： > >= = =< <。
+  - = 代表的是等于
+  - 除去关键字 true 以外的值都被视为 false：
+```
+### 数量不定的参数
+如果你希望你的方法接受数量不定的参数，你可以使用... ，犹如 ES6 的扩展运算符
+```less
+/* Less */
+.boxShadow(...){
+  box-shadow: @arguments;
+}
+.textShadow(@a,...){	
+  text-shadow: @arguments;
+}
+#main{
+  .boxShadow(1px,4px,30px,red);
+  .textShadow(1px,4px,30px,red);
+}
+
+/* 生成后的 CSS */
+#main{
+  box-shadow: 1px 4px 30px red;
+  text-shadow: 1px 4px 30px red;
+}
+```
+### 方法使用important！
+使用方法 非常简单，在方法名后 加上关键字即可。
+```less
+/* Less */
+.border{
+  border: solid 1px red;
+  margin: 50px;
+}
+#main{
+  .border() !important;
+}
+/* 生成后的 CSS */
+#main {
+  border: solid 1px red !important;
+  margin: 50px !important;
+}
+```
+### 实战技巧
+下面是官网中的一个非常赞的 Demo
+```less
+/* Less */
+.average(@x, @y) {
+  @average: ((@x + @y) / 2);
+}
+
+div {
+  .average(16px, 50px); // 调用 方法
+  padding: @average;    // 使用返回值
+}
+
+/* 生成的 CSS */
+div {
+  padding: 33px;
+}
+```
+可以说 Less 是一门优雅编程语言。
+## 继承
+extend 是 Less 的一个伪类。它可继承 所匹配声明中的全部样式。
+<br>
+**特点**：性能高，灵活度低，不能传参，无括号。
+### extend 关键字的使用
+```less
+/* Less */
+.animation{
+  transition: all .3s ease-out;
+  .hide{
+    transform:scale(0);
+  }
+}
+#main{
+    &:extend(.animation);
+}
+#con{
+  &:extend(.animation .hide);
+}
+
+/* 生成后的 CSS */
+.animation,#main{
+  transition: all .3s ease-out;
+}
+.animation .hide , #con{
+  transform:scale(0);
+}
+```
+### 减少代码的重复性
+从表面看来，extend 与 方法 最大的差别，就是 extend 是同个选择器共用同一个声明，而 方法 是使用自己的声明，这无疑 增加了代码的重复性。
+<br>
+方法示例 与上面的 extend 进行对比：
+```less
+/* Less */
+.Method{
+  width: 200px;
+  &:after {
+    content:"Less is good!";
+  }
+}
+#main{
+  .Method;
+}
+#wrap{
+  .Method;
+}
+
+/* 生成的 CSS */
+#main{
+  width: 200px;
+  &:after{
+    content:"Less is good!";
+  }  
+}
+#wrap{
+  width: 200px;
+  &:after{
+    content:"Less is good!";
+  }  
+}
+```
+- 要点
+  - 选择器和扩展之间 是允许有空格的：pre:hover :extend(div pre).
+  - 可以有多个扩展: pre:hover:extend(div pre):extend(.bucket tr) - 注意这与 pre:hover:extend(div pre, .bucket tr)一样。
+这是不可以的，扩展必须在最后 : pre:hover:extend(div pre).nth-child(odd)。
+  - 如果一个规则集包含多个选择器，所有选择器都可以使用extend关键字。
+## 导入
+### 文件导入
+1. 导入less文件可省略后缀
+```javascript
+import "main";
+// 等价于
+import "main.less";
+```
+2. @omport 的位置可以随意放置
+```less
+#main {
+  font-size:150px;
+}
+@import "style"
+```
+### reference
+Less中最强大的特性
+<br>
+使用@import (reference)导入外部文件，但不会添加 把导入的文件 编译到最终输出中，只引用。
+```less
+/* Less */
+@import (reference) "bootstrap.less"; 
+
+#wrap:extend(.navbar all){}
+```
+### once
+@import语句的默认行为。这表明相同的文件只会被导入一次，而随后的导入文件的重复代码都不会解析。
+```less
+@import (once) "foo.less";
+@import (once) "foo.less"; // this statement will be ignored
+```
+### multiple
+使用@import (multiple)允许导入多个同名文件。
+```less
+/* Less */   
+// file: foo.less
+.a {
+  color: green;
+}
+// file: main.less
+@import (multiple) "foo.less";
+@import (multiple) "foo.less";
+   
+/* 生成后的 CSS */
+.a {
+  color: green;
+}
+.a {
+  color: green;
+}
+```
+## 函数
+### 判断类型
+1. **isnumber**
+<br>
+ 判断给定的值 是否 是一个数字。
+```less
+isnumber(#ff0);     // false
+isnumber(blue);     // false
+isnumber("string"); // false
+isnumber(1234);     // true
+isnumber(56px);     // true
+isnumber(7.8%);     // true
+isnumber(keyword);  // false
+isnumber(url(...)); // false
+```
+2. **iscolor**
+<br>
+ >判断给定的值是否是一个颜色。
+ 3. **isurl**
+ <br>
+ 判断给定的值是否是一个 url。
+ ### 颜色操作
+ 1. **saturate** 
+ <br>
+增加一定数值的颜色饱和度。 
+2. **lighten** 
+ <br>
+降低一定数值的颜色亮度。
+3. **darken** 
+ <br>
+降低一定数值的颜色亮度。
+4. **fade** 
+ <br>
+给颜色设定一定数值的透明度。
+5. **mix** 
+ <br>
+根据比例混合两种颜色。
+### 数学函数
+1. **ceil** 
+ <br>
+向上取整。 
+2. **floor** 
+ <br>
+向下取整。
+3. **percentage** 
+ <br>
+将浮点数转换为百分比字符串。
+4. **round** 
+ <br>
+四舍五入。
+5. **abs** 
+ <br>
+计算数字的绝对值，原样保持单位。
+<br>
+由于文章篇幅有限，所以只能介绍一些使用效率高的函数。
+如果你想了解更多，可以去官网的[函数链接](http://lesscss.cn/functions/)
+## 其他
+### 注释
+- /* */ 
+> CSS原生注释，会被编译到CSS文件中
+- // 
+>Less提供的注释，不会被编辑到CSS中
+### 避免编译
+结构： `~' 值 '`
+```less
+/* Less */
+#main{
+  width:~'calc(300px-30px)';
+}
+
+/* 生成后的 CSS */
+#main{
+  width:calc(300px-30px);
+}
+```
+### 使用JS
+因为 Less 是由 JS 编写，所以 Less 有一得天独厚的特性：代码中使用 Javascript 。
+```less
+/* Less */
+@content:`"aaa".toUpperCase()`;
+#randomColor{
+  @randomColor: ~"rgb(`Math.round(Math.random() * 256)`,`Math.round(Math.random() * 256)`,`Math.round(Math.random() * 256)`)";
+}
+#wrap{
+  width: ~"`Math.round(Math.random() * 100)`px";
+  &:after{
+      content:@content;
+  }
+  height: ~"`window.innerHeight`px";
+  alert:~"`alert(1)`";
+  #randomColor();
+  background-color: @randomColor;
+}
+/* 生成后的 CSS */
+
+// 弹出 1
+#wrap{
+  width: 随机值（0~100）px;
+  height: 743px;//由电脑而异
+  background: 随机颜色;
+}
+#wrap::after{
+  content:"AAA";
+}
+```
 
