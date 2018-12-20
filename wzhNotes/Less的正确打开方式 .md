@@ -10,13 +10,13 @@
 
 ## 预处理语言的诞生
 
-* Sass
+- Sass
 <br>
 Sass诞生于2007年，Ruby编写，其功能及语法都十分全面，可以说完全把CSS变成了一门编程语言，在国内外都十分受欢迎。是一门非常优秀的的预处理语言。
-* Stylus
+- Stylus
 <br>
 Stytus诞生于2010年，来自Node.js社区，其语法功能与Sass不相伯仲，是一门十分独特的创新型语言。
-* Less
+- Less
 <br>
 Less诞生于2009年，受Sass影响创建的一个开源项目。它扩充了CSS语言，增加了诸如变量、混合、函数等功能，让CSS更易于维护、方便。
 
@@ -43,7 +43,7 @@ Less诞生于2009年，受Sass影响创建的一个开源项目。它扩充了CS
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 ```
 2. 在命令行，使用Node包管理工具npm来安装:
-```javascript
+```
 npm install -g less 
 ```
 &emsp;&emsp;&emsp;一旦安装完成，就可以在命令行中调用，例如:
@@ -622,15 +622,15 @@ Less中最强大的特性
 1. isnumber
 <br>
  判断给定的值 是否 是一个数字。
-```less
-isnumber(#ff0);     // false
-isnumber(blue);     // false
-isnumber("string"); // false
-isnumber(1234);     // true
-isnumber(56px);     // true
-isnumber(7.8%);     // true
-isnumber(keyword);  // false
-isnumber(url(...)); // false
+ ```less
+  isnumber(#ff0);     // false
+  isnumber(blue);     // false
+  isnumber("string"); // false
+  isnumber(1234);     // true
+  isnumber(56px);     // true
+  isnumber(7.8%);     // true
+  isnumber(keyword);  // false
+  isnumber(url(...)); // false
 ```
 2. iscolor
 <br>
