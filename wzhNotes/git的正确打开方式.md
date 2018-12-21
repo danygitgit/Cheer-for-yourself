@@ -1,4 +1,4 @@
-@[Less笔记](这里写自定义目录标题)
+@[git笔记](这里写自定义目录标题)
 
 # 前言
 
@@ -37,8 +37,7 @@
 # 正文
 ## Git工作流程
 
-先上图: ![Alt](./img/giti-mg.png
-)
+先上图: ![Alt](./img/git-img.png)
 以上包括一些简单而常用的命令，但是先不关心这些，先来了解下面这4个专有名词。
 - Workapace : 工作区
 - Index/Stage ：暂存区
@@ -64,28 +63,128 @@
 <br>
 &emsp;&emsp;HEAD，它始终指向当前所处分支的最新的提交点。你所处的分支变化了，或者产生了新的提交点，HEAD就会跟着改变。
 <br>
-无图无真相![Alt](https://user-gold-cdn.xitu.io/2017/8/24/91727dade6dc91581660edb4f912a794?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+无图无真相![Alt](./img/git-head.jpg)
 ### 小结
 1. 任何对象都是在工作区诞生和被修改；
 2. 任何修改都是从进入index区才开始被版本控制；
 3. 只有把修改提交到本地仓库，该修改才能在仓库留下足迹；
 4. 与协作者分享本地的更改，需要将更改push到远程仓库
+
 ## 常用的Git命令
-继续上图![alt](https://user-gold-cdn.xitu.io/2017/8/24/a6ee08b8768069315425dc685383ca79?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+继续上图![alt](./img/git-order.jpg)
+
 ### 一、新建代码库
-```git 
-# 在当前新目录新建一个git代码库
-$ git init
 
-# 新建一个目录，将其初始化为First代码库
-$ git init [project-name]
+- 在当前新目录新建一个git代码库
+> $ git init
 
-# 下载一个项目和它的整个代码史
-$ git clone [url]
-```
-```git
-#编辑Git配置文件
-$ git config -e [--global]
-$ git
-```
+- 新建一个目录，将其初始化为First代码库
+> $ git init [project-name]
 
+- 下载一个项目和它的整个代码史
+> <font color=red> $ git clone [url]</font>
+
+### 二、配置
+
+Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）
+
+1. 显示当前的Git配置
+> $git config --list
+
+2. 编辑Git配置文件
+> $ git config -e [--global]
+ 
+3. 设置提交代码时的用户信息
+> $ git config [--global] user.name "[name]"
+
+> $ git config [--global] user.email "[email address]"
+
+### 三、增加/删除文件
+
+- 添加指定文件到暂存区
+><font color=red> $ git add [file1] [file2] ...</font>
+
+- 添加指定目录到暂存区
+> $ git add [dir]
+
+- 添加所有文件到暂存区
+> $ <font color=red> git add .</font>
+
+- 添加每个变化前，都会要求确认，对于同一个文件的多处变化，可以实现分次提交
+> $ git add -p 
+
+- 删除工作区文件，并且将这次删除彷如暂存区
+> $ git rm [file1] [file2] ...
+
+- 停止追踪指定文件，但该文件会保留在工作区
+>$  git rm -cached [file]
+
+- 改名文件，并且将这个改名放入暂存区
+> $ git mv [file-origin] [file-rename]
+
+### 四、代码提交
+
+- 提交暂存区到仓库区 
+><font color=red>$ git connit -m [message] </font>
+
+- 提交暂存区的指定文件到仓库区
+> <font color=red>$ git commit [file1] [file2] ... -m [message] </font>
+
+- 提交工作区自上次commit之后的变化，直接到仓库区
+> $ git commit -a 
+
+- 提交时显示所有的diff信息
+> $ git commit -v 
+
+- 使用一次新的commit，替代上一次提交，如果代码没有任何变化，则用来改写上一次commit的提交信息
+> $ git commit --amend -m [message]
+
+- 重做上一次commit，并包括指定文件的新变化
+> $ git commit -amend [file1] [file2]...
+
+### 五、分支
+
+- 列出所有本地分支
+> <font color=red> $git branch</font>
+
+- 列出所有远程分支
+> git branch -r 
+ 
+- 列出所有本地分支和远程分支
+> <font color=red> $ git branch -a</font>
+
+- 新建一个分支，但依然停留在当前分支
+> <font color=red> $ git branch [branch-name] </font>
+
+- 新建一个分支，并切换到该分支
+> <font color=red> $ git branch -b [branch-name] </font>
+
+- 新建一个分支，指向指定的commit
+> $ git branch [branch] [commit]
+
+- 新建一个分支，与指定远程分支建立追踪关系
+> $ git branch --track [branch] [remote-branch]
+
+- 切换到指定分支，并更新工作区
+> <font color=red> $ git checkout [branch-name] </font>
+
+- 切换到上一分支
+> <font color=red> $ git checkout - </font>
+
+- 建立追踪关系，在现有分支和指定的远程分支之间
+> $ git branch --set-up-tream [branch] [remote-branch]
+
+- 合并指定分支到当前分支
+> <font color=red>$ git merge [branch] </font>
+
+- 选择一个commit，合并进当前分支
+> $ git cherry-pick [commit]
+
+- 删除分支
+> <font color=red> $ git branch -d [branch-name] </font>
+ 
+ - 删除远程分支
+ > $ git push prigin --delete [branch-name]
+
+> $ git branch -dr [remote/branch]
