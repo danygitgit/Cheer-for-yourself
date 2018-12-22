@@ -209,4 +209,7 @@ Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置�
 - 查看tag信息
 > git push [remote] --tags
 
+- 提交指定tag
+> git push [remote] --tage
+
 - 
