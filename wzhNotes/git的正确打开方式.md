@@ -207,9 +207,23 @@ Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置�
 > $ git push origin :refs/tags/[tagName]
 
 - 查看tag信息
-> git push [remote] --tags
+> $ git show [tag]
 
 - 提交指定tag
-> git push [remote] --tage
+>  $ git push [remote] [tag]
 
-- 
+- 提交所有tag
+> $ git push [remote] --tages
+
+- 新建一个分支，指向某个teg
+> $ git checkout -b [branch] [tag]
+
+### 七、查看信息
+
+- 显示有变更的文件
+> <font color=red>$ git status</font>
+
+- 显示当前分支的版本历史
+> <font color=red>$ git long</font>
+
+- <font color=red>显示某个commit历史，以及每次commit发生变更的文件</font>
