@@ -27,12 +27,11 @@
 
 ## git的正确打开方式 
 要使用Git，第一步当然是安装Git了。
+* 在Linux上安装Git
+* 在Windows上安装Git
+* 在Windows上安装Git
 
-1. 在Linux上安装Git
-
-2. 在Windows上安装Git
-
-3. 在Windows上安装Git
+详细信息请移步[廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137396287703354d8c6c01c904c7d9ff056ae23da865a000)
 
 # 正文
 ## Git工作流程
@@ -269,3 +268,105 @@ Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置�
 
 - 从本地master拉取代码更新当前分支：branch一般为master
 > <font color=red>$ git rebase [branch]</font> 
+
+### 八、远程分支
+
+- 更新远程仓储
+> <font color=red> $ git remote update </font>
+
+- 显示所有远程仓库
+> $ git remote -v
+
+- 显示某个远程仓库信息
+> $ git remote show [remote]
+
+- 增加一个新的远程仓库，并命名
+> $ git remote add [shortname] [url]
+
+- 取回远程仓库的变化，并与本地分支合并
+> $ git push [remote] [branch]
+
+- 上传本地分支到远程仓库
+> $ git push [remote] [branch]
+
+- 强行推送当前分支到远程仓库
+> $ git push [remote] --force
+
+- 推送所有分支到远程仓库
+> git push [remote] --all
+
+### 九、撤销
+
+- 恢复暂存区的指定文件到工作区
+> $ git checkout [commit] [file]
+
+- 恢复某个commit的指定文件到暂存区和工作区
+> $ git chechout .
+
+- 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变
+> $ git reset [file]
+
+- 重置暂存区和工作区，与上次commit保持一致
+> <font color=red>$ git reset --hard</font>
+
+- 重置当前分支的指针为指定commit，同时是重置暂存区，但工作区不变
+> $ git reset [commit]
+
+- 重置当前分支的HEAD为指定commit，同时重置暂存区与工作区，与指定commit保持一致
+> $git reset --hard [commit]
+
+- 重置当前HEAD为指定commit，但保持暂存区和工作区不变
+> $ git reset --keep [commit]
+
+- 新建一个commit，哦用来撤销指定commit，后者的变化都被前者抵消，并且应用到当前分支
+> $ git revert [commit]
+
+- 暂时将未提交的变化移除，稍后再移入
+> $ git stash
+> $ git stash pop
+
+### 十、其他
+
+- 生成一个可供发布的压缩包
+> $ git archive
+
+## GitHub
+
+### 什么是GitHub
+
+&emsp;&emsp;github是一个基于git的代码托管平台，付费用户可以建私人仓库，我们一般的免费用户只能使用公共仓库，也就是代码要公开。
+<br>
+&emsp;&emsp;Git本身完全可以做到版本控制，但其所有内容以及版本记录只能保存在本机，如果想要将文件内容以及版本记录同时保存在远程，则需要结合GitHub来使用。使用场景：
+* 无GitHub：在本地 .git 文件夹内维护历时文件
+* 有GitHub：在本地 .git 文件夹内维护历时文件，同时也将历时文件托管在远程仓库
+
+### 我们能用GitHub做什么
+
+&emsp;&emsp;我们一直用GitHub作为免费的远程仓库，如果是个人的开源项目，放到GitHub上是完全没有问题的。其实GitHub还是一个开源协作社区，通过GitHub，既可以让别人参与你的开源项目，也可以参与别人的开源项目。
+<br>
+&emsp;&emsp;在GitHub出现以前，开源项目开源容易，但让广大人民群众参与进来比较困难，因为要参与，就要提交代码，而给每个想提交代码的群众都开一个账号那是不现实的，因此，群众也仅限于报个bug，即使能改掉bug，也只能把diff文件用邮件发过去，很不方便。
+<br>
+&emsp;&emsp;但是在GitHub上，利用Git极其强大的克隆和分支功能，广大人民群众真正可以第一次自由参与各种开源项目了。
+<br>
+&emsp;&emsp;如何参与一个开源项目呢？
+<br>
+&emsp;&emsp;比如人气极高的bootstrap项目，这是一个非常强大的CSS框架，你可以访问它的项目主页`https://github.com/twbs/bootstrap`，点“Fork”就在自己的账号下克隆了一个bootstrap仓库，然后，从自己的账号下clone：
+
+> clone git@github.com:michaelliao/bootstrap.git
+
+&emsp;&emsp;一定要从自己的账号下clone仓库，这样你才能推送修改。如果从bootstrap的作者的仓`it@github.com:twbs/bootstrap.git`克隆，因为没有权限，你将不能推送修改。
+
+* 如果你想修复bootstrap的一个bug，或者新增一个功能，立刻就可以开始干活，干完后，往自己的仓库推送。
+* 如果你希望bootstrap的官方库能接受你的修改，你就可以在GitHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了。
+
+* 如果你没能力修改bootstrap，但又想要试一把pull request，那就Fork一下廖雪峰老师的仓库`https://github.com/michaelliao/learngit`，创建一个your-github-id.txt的文本文件，写点自己学习Git的心得，然后推送一个pull request给我，我会视心情而定是否接受。
+
+### 小结
+* 在GitHub上，可以任意Fork开源仓库；
+
+* 自己拥有Fork后的仓库的读写权限；
+
+* 可以推送pull request给官方仓库来贡献代码。
+
+# 总结 
+&emsp;&emsp;路漫漫其修远兮，希望Git及GitHub可以帮我们记录每一个脚印，每一步成长。与诸君共勉。
