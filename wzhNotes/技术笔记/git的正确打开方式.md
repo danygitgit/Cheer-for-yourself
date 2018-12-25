@@ -340,6 +340,8 @@ Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置�
 * 无GitHub：在本地 .git 文件夹内维护历时文件
 * 有GitHub：在本地 .git 文件夹内维护历时文件，同时也将历时文件托管在远程仓库
 
+推荐一个风趣易懂的Git介绍，戳这里：[如何使用 GitHub？](https://www.zhihu.com/question/20070065/answer/79557687)
+
 ### 我们能用GitHub做什么
 
 &emsp;&emsp;我们一直用GitHub作为免费的远程仓库，如果是个人的开源项目，放到GitHub上是完全没有问题的。其实GitHub还是一个开源协作社区，通过GitHub，既可以让别人参与你的开源项目，也可以参与别人的开源项目。
